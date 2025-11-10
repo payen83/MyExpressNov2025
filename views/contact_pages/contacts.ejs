@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, 
+        initial-scale=1.0">
+    <title>Contact List</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>
+            <%= title %>
+        </h1>
+        <p>
+            <%= content %>
+        </p>
+    </div>
+    <div class="add-button-container">
+        <a href="/contacts/add" class="add-button">
+            <i class="fa-solid fa-plus"></i> Add New Contact
+        </a>
+    </div>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+            <% contacts.forEach(function(contact, index){ %>
+                <tr>
+                    <td>
+                        <%= index+1 %>
+                    </td>
+                    <td>
+                        <%= contact.name %>
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <a href="/contacts/details/<%= contact.id %>" class="btn btn-view" title="View">
+                                <i class="fa fa-solid fa-eye"></i>
+                            </a>
+                            <a href="#" class="btn btn-edit" title="Edit">
+                                <i class="fa fa-solid fa-pen"></i>
+                            </a>
+                            <a href="#" class="btn btn-delete" title="Delete">
+                                <i class="fa fa-solid fa-trash"></i>
+                            </a>
+                        </div>
+                </tr>
+                </td>
+                <% }); %>
+        </table>
+    </div>
+</body>
+
+</html>
