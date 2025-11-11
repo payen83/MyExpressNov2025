@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, 
+        initial-scale=1.0">
+    <title>New Users</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>
+            <%= title %>
+        </h1>
+        <p>
+            <%= content %>
+        </p>
+    </div>
+    
+    <div class="form-container">
+        <% if (error){ %>
+            <div class="error"><%= error %></div>
+        <% } %>
+        <form action="<%= formAction %>" method="POST">
+            <% if(user) { %>
+                <input type="hidden" name="_method" value="PUT">
+            <% } %>
+            <label for="name">Name: </label>
+            <input type="text" name="name" placeholder="Enter name" value="<%= user ? user.name :'' %>">
+            
+            <label for="email">Email: </label>
+            <input type="text" name="email" placeholder="Enter email" value="<%= user ? user.email :'' %>">
+
+            <label for="phone">Phone Number: </label>
+            <input type="text" name="phone" placeholder="Enter phone" value="<%= user ? user.phone :'' %>">
+
+            <div class="button-group">
+                <button type="submit" class="save-btn">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <%= user ? 'Update':'Save' %>
+                </button>
+                <a href="/users" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </a>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

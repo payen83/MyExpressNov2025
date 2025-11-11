@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, 
+        initial-scale=1.0">
+    <title>Users List</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>
+            <%= title %>
+        </h1>
+        <p>
+            <%= content %>
+        </p>
+    </div>
+    <div class="add-button-container">
+        <a href="/users/add" class="add-button">
+            <i class="fa-solid fa-plus"></i> Add New Users
+        </a>
+    </div>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+            <% users.forEach(function(user, index){ %>
+                <tr>
+                    <td>
+                        <%= index+1 %>
+                    </td>
+                    <td>
+                        <%= user.name %>
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <a href="/users/details/<%= user.id %>" class="btn btn-view" title="View">
+                                <i class="fa fa-solid fa-eye"></i>
+                            </a>
+                            <a href="/users/update/<%= user.id %>" class="btn btn-edit" title="Edit">
+                                <i class="fa fa-solid fa-pen"></i>
+                            </a>
+                        </div>
+                </tr>
+                </td>
+                <% }); %>
+        </table>
+    </div>
+</body>
+
+</html>
