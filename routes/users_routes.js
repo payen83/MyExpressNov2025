@@ -113,5 +113,16 @@ router.get('/details/:id', async (req, res) => {
     }
 });
 
+router.delete('/delete/:id', async(req, res) => {
+    try {
+        const [result] = await db.query('DELETE FROM users WHERE id = ?', [req.params.id]);
+        if(result.affectedRows == 0) return res.status(404).send('User not found');
+        res.redirect('/users');
+    } catch(err){
+        console.error(err);
+        res.status(500).send('Unable to delete, please contact Administrator');
+    }
+});
+
 module.exports = router;
 
