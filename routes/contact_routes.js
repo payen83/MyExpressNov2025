@@ -30,6 +30,14 @@ router.get('/add', (req, res)=> renderFormPage(res));
 
 router.post('/add', (req, res)=>{
     const {name, phone } = req.body;
+
+    if(!name || name.trim() == ''){
+        return renderFormPage(res, 'Name cannot be empty');
+    }
+
+    if(!phone || !/^\d+$/.test(phone)){
+        return renderFormPage(res, 'Phone number is required and must be number only');
+    }
     
     const newContact = {
         id: contacts.length+1,
@@ -38,8 +46,7 @@ router.post('/add', (req, res)=>{
     }
     contacts.push(newContact);
     res.redirect('/contacts')
-})
-
+});
 
 function renderFormPage(res, error = null){
     res.render('contact_pages/contact_form', {
@@ -49,5 +56,15 @@ function renderFormPage(res, error = null){
         formAction: '/contacts/add'
     });
 }
+
+router.delete('/delete/:id', (req, res)=>{
+    const id = parseInt(req.params.id);
+    const index = contacts.findIndex(c => c.id == id);
+    if(index < 0){
+        return res.status(404).send('Contact not found')
+    }
+    contacts.splice(index, 1);
+    res.redirect('/contacts');
+});
 
 module.exports = router;

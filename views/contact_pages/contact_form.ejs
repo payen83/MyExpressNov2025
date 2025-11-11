@@ -23,6 +23,9 @@
     </div>
     
     <div class="form-container">
+        <% if (error){ %>
+            <div class="error"><%= error %></div>
+        <% } %>
         <form action="<%= formAction %>" method="POST">
             <label for="name">Name: </label>
             <input type="text" name="name" placeholder="Enter name" value="<%= '' %>">

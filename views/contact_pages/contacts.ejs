@@ -48,9 +48,13 @@
                             <a href="#" class="btn btn-edit" title="Edit">
                                 <i class="fa fa-solid fa-pen"></i>
                             </a>
-                            <a href="#" class="btn btn-delete" title="Delete">
-                                <i class="fa fa-solid fa-trash"></i>
-                            </a>
+                            <form action="/contacts/delete/<%= contact.id %>?_method=DELETE" METHOD="POST"
+                                style="display: inline;">
+                                <button type="submit" class="btn btn-delete" title="Delete"
+                                    onclick="return confirm('Are you sure to delete this contact?')">
+                                    <i class="fa fa-solid fa-trash"></i>
+                                </button>
+                            </form>
                         </div>
                 </tr>
                 </td>
