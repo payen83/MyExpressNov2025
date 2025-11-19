@@ -14,6 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 const methodOverride = require( 'method-override' );
 app.use( methodOverride( '_method' ));
 
+app.use('/api/files/images', express.static(path.join(__dirname, 'files/images')));
+
 app.get('/', (req, res) => {
     res.send('Hello Express!');
 });
@@ -40,5 +42,8 @@ app.use('/contacts', contactRoutes);
 
 const usersRoutes = require('./routes/users_routes');
 app.use('/users', usersRoutes);
+
+const reportApiRoutes = require('./routes/reportapi_routes');
+app.use('/api/reports', reportApiRoutes);
 
 app.listen(PORT, ()=> console.log('Server running on http://localhost:' + PORT));
