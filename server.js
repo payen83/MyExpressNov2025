@@ -46,4 +46,7 @@ app.use('/users', usersRoutes);
 const reportApiRoutes = require('./routes/reportapi_routes');
 app.use('/api/reports', reportApiRoutes);
 
+const authApiRoutes = require('./routes/authapi_routes');
+app.use('/api/auth', authApiRoutes);
+
 app.listen(PORT, ()=> console.log('Server running on http://localhost:' + PORT));

@@ -3,6 +3,24 @@ const router = express.Router();
 const db = require('../database');
 const multer = require('multer');
 const path = require('path');
+const jwt = require('jsonwebtoken');
+
+function verifyToken(req, res, next){
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if(!token) return res.status(401).json({
+        success: false,
+        message: 'Access denied. No token provided'
+    });
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if(err) return res.status(403).json({
+            success: false,
+            message: 'Invalid token'
+        });
+        req.user = user;
+        next();
+    });
+}
 
 //configure storage files, location & filename
 const storage = multer.diskStorage({
@@ -16,7 +34,36 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage: storage});
 
-router.post('/add', upload.single('image'), async(req, res) => {
+router.put('/update/:id', upload.single('image'), verifyToken, async(req, res) => {
+    const { title, date, category } = req.body;
+    const image_path = req.file ? `files/images/${req.file.filename}`: null;
+    const errors = [];
+
+    if(!title || title.trim() == '') errors.push('Title is required');
+    if(!date || date.trim() == '') errors.push('Date is required');
+    if(!category || category.trim() == '') errors.push('Category is required');
+
+    if(errors.length > 0) return errorResponse(res, 400, 'Validation failed', null, errors);
+
+    try {
+        let query = "UPDATE reports SET title = ?, date = ?, category = ?";
+        let params = [title, date, category];
+        if(image_path){
+            query += ', image_path = ?';
+            params.push(image_path);
+        }
+        query += ' WHERE id = ?';
+        params.push(req.params.id);
+        const [result] = await db. query(query, params);
+
+        if(result.affectedRows === 0) return errorResponse(res, 404, "Report not found");
+        successResponse(res, 200, "Report updated successfully", {data: {id: req.params.id }});
+    } catch(err){
+        errorResponse(res, 500, 'Server or DB error. Failed to update.', err.message);
+    }
+});
+
+router.post('/add', upload.single('image'), verifyToken, async(req, res) => {
     const {title, date, category, user_id} = req.body;
     const image_path = req.file ? `files/images/${req.file.filename}`: null;
     const errors = [];
