@@ -3,10 +3,9 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const cors = require('cors');
-
 const corsOptions = {
-    origin: ['http://localhost:3000', 'http://localhost/', 'http://10.0.2.2/', 'http://127.0.0.1'],
-    methods: 'GET, HEAD, POST, PUT, PATCH, DELETE',
+    origin: ['http://localhost:3000', 'http://localhost/', 'http://10.0.2.2:3000/', 'http://127.0.0.1:62565/'],
+    methods: 'GET,HEAD,POST,PUT,PATCH,DELETE',
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
 };
