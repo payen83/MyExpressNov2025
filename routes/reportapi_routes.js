@@ -4,6 +4,7 @@ const db = require('../database');
 const multer = require('multer');
 const path = require('path');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 function verifyToken(req, res, next){
     const authHeader = req.headers['authorization'];
