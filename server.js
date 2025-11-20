@@ -2,8 +2,18 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use(express.static('public'));
+const cors = require('cors');
 
+const corsOptions = {
+    origin: ['http://localhost:3000', 'http://localhost/', 'http://10.0.2.2/', 'http://127.0.0.1'],
+    methods: 'GET, HEAD, POST, PUT, PATCH, DELETE',
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
+
+app.use(express.static('public'));
 app.engine('ejs', require('ejs').__express);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
