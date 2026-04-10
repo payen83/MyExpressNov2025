@@ -10,7 +10,9 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization']
 };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
+
 
 app.use(express.static('public'));
 app.engine('ejs', require('ejs').__express);
