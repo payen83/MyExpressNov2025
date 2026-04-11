@@ -57,6 +57,9 @@ app.use('/users', usersRoutes);
 const reportApiRoutes = require('./routes/reportapi_routes');
 app.use('/api/reports', reportApiRoutes);
 
+const userApiRoutes = require('./routes/userapi_routes');
+app.use('/api/users', userApiRoutes);
+
 const authApiRoutes = require('./routes/authapi_routes');
 app.use('/api/auth', authApiRoutes);
 
