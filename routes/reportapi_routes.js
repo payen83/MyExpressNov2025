@@ -140,6 +140,7 @@ router.get('/:id', async (req, res)=>{
             report.title,
             report.date,
             report.image_path,
+            report.category,
             report.user_id,
             user.id AS user_id,
             user.name AS user_name,
